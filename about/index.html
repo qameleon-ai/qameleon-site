@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About QAmeleon</title>
+<meta name="description" content="Who builds QAmeleon, how it is tested, what it refuses to do, and what it can't do yet.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/fonts/fonts.css">
+<link rel="preload" href="/fonts/bricolage-grotesque-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/atkinson-hyperlegible-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+.skip{position:absolute;left:16px;top:-60px;z-index:10;padding:12px 18px;border-radius:999px;background:#7DD69B;color:#1E2227;font-weight:700;text-decoration:none}.skip:focus{top:12px}
+:focus-visible{outline:3px solid #1E2227;outline-offset:0;box-shadow:0 0 0 6px #7DD69B}
+body{margin:0;background:#F5F3EE}
+a{color:#1E2227}a:hover{color:#4A535B}
+.legal{max-width:760px;margin:0 auto;padding:24px 24px 96px}
+.legal section{padding:40px 0 0;display:flex;flex-direction:column;gap:14px}
+.legal h2{margin:0;font-family:'Bricolage Grotesque',system-ui,sans-serif;font-size:clamp(26px,3vw,34px);line-height:1.1;font-weight:800;letter-spacing:-0.02em}
+.legal h3{margin:6px 0 0;font-family:'Bricolage Grotesque',system-ui,sans-serif;font-size:21px;line-height:1.25;font-weight:700}
+.legal p{margin:0}
+.legal ul{margin:0;padding-left:22px;display:flex;flex-direction:column;gap:8px}
+.legal a{padding-block:3px}
+.legal .box{background:#FFFFFF;border:1px solid #DCD8CE;border-radius:16px;padding:20px 22px;display:flex;flex-direction:column;gap:8px}
+footer a{display:inline-block;padding-block:3px}
+.legal h3+p{margin-top:-6px}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}
+.cta a{display:inline-flex;align-items:center;min-height:44px;padding:0 22px;border-radius:999px;text-decoration:none;font-weight:700}
+.cta .primary{background:#7DD69B;color:#1E2227}
+.cta .secondary{border:2px solid #1E2227;color:#1E2227}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div style="background: #F5F3EE; color: #1E2227; font-family: 'Atkinson Hyperlegible', 'Verdana', sans-serif; font-size: 18px; line-height: 1.6">
+
+<header style="background: #2B3036; color: #F2F5F7">
+<nav aria-label="Main" style="max-width: 1280px; margin: 0 auto; padding: 20px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+<a href="/" style="display: flex; align-items: center; gap: 10px; color: #F2F5F7; text-decoration: none; font-family: 'Bricolage Grotesque', system-ui, sans-serif; font-weight: 800; font-size: 28px; letter-spacing: -0.03em">
+<svg style="width: 46px; height: auto; display: block" viewBox="140 280 560 500" aria-hidden="true" focusable="false">
+<defs>
+<radialGradient id="qb-logo" cx="0.36" cy="0.3" r="0.8"><stop offset="0" stop-color="#A8E6BC"/><stop offset="0.55" stop-color="#7DD69B"/><stop offset="1" stop-color="#4FA86C"/></radialGradient>
+<clipPath id="qc-logo"><circle cx="393" cy="508" r="140"/></clipPath>
+</defs>
+<path d="M 186 704 Q 400 690 664 706" fill="none" stroke="#6E5338" stroke-width="22" stroke-linecap="round"/>
+<path d="M 196 698 Q 400 685 650 699" fill="none" stroke="#9A7651" stroke-width="5" stroke-linecap="round"/>
+<path d="M 214 700 C 196 676 206 650 232 642 C 238 668 232 688 214 700 Z" fill="#5FA86E"/>
+<path d="M 214 700 Q 222 672 230 648" fill="none" stroke="#3F7E4E" stroke-width="3" stroke-linecap="round"/>
+<path d="M 300 380 C 300 330 352 300 404 334 L 420 372 Z" fill="#7DD69B" stroke="#4FA86C" stroke-width="5" stroke-linejoin="round"/>
+<path d="M 326 352 Q 360 330 392 346" fill="none" stroke="#4FA86C" stroke-opacity="0.4" stroke-width="5" stroke-linecap="round"/>
+<path d="M 448.5 381.6 L 472.3 358.8 L 466.7 391.4 Z" fill="#4FA86C" stroke="#4FA86C" stroke-width="7" stroke-linejoin="round"/><path d="M 481.2 401.8 L 508.3 388.6 L 496.0 416.2 Z" fill="#4FA86C" stroke="#4FA86C" stroke-width="7" stroke-linejoin="round"/><path d="M 507.0 430.2 L 534.2 426.5 L 517.3 448.1 Z" fill="#4FA86C" stroke="#4FA86C" stroke-width="7" stroke-linejoin="round"/><path d="M 524.0 464.7 L 548.2 469.3 L 529.0 484.7 Z" fill="#4FA86C" stroke="#4FA86C" stroke-width="7" stroke-linejoin="round"/><path d="M 530.9 502.5 L 549.9 513.5 L 530.2 523.1 Z" fill="#4FA86C" stroke="#4FA86C" stroke-width="7" stroke-linejoin="round"/>
+<path d="M 482 596 C 566 606 628 646 622 704 C 616 756 548 760 540 724 C 534 698 562 686 582 702" fill="none" stroke="#4FA86C" stroke-width="48" stroke-linecap="round"/>
+<path d="M 482 596 C 566 606 628 646 622 704 C 616 756 548 760 540 724 C 534 698 562 686 582 702" fill="none" stroke="#7DD69B" stroke-width="38" stroke-linecap="round"/>
+<path d="M 482 596 C 566 606 628 646 622 704 C 616 756 548 760 540 724 C 534 698 562 686 582 702" fill="none" stroke="#4FA86C" stroke-opacity="0.35" stroke-width="38" stroke-dasharray="7 24"/>
+<path d="M 462 626 Q 500 660 486 694" fill="none" stroke="#4FA86C" stroke-width="26" stroke-linecap="round"/><ellipse cx="475" cy="696" rx="14" ry="10" fill="#4FA86C"/><ellipse cx="497" cy="698" rx="14" ry="10" fill="#4FA86C"/>
+<path d="M 348 636 Q 340 668 330 694" fill="none" stroke="#4FA86C" stroke-width="26" stroke-linecap="round"/><ellipse cx="319" cy="696" rx="14" ry="10" fill="#4FA86C"/><ellipse cx="341" cy="698" rx="14" ry="10" fill="#4FA86C"/>
+<circle cx="393" cy="508" r="143" fill="url(#qb-logo)" stroke="#4FA86C" stroke-width="5"/>
+<g clip-path="url(#qc-logo)">
+<ellipse cx="364" cy="650" rx="150" ry="72" fill="#A8E6BC" fill-opacity="0.32"/>
+<path d="M 424 392 Q 506 446 504 552" fill="none" stroke="#4FA86C" stroke-opacity="0.35" stroke-width="13" stroke-linecap="round"/>
+<path d="M 400 600 Q 474 590 524 546" fill="none" stroke="#4FA86C" stroke-opacity="0.35" stroke-width="13" stroke-linecap="round"/>
+</g>
+<circle cx="466" cy="498" r="10" fill="#4FA86C" fill-opacity="0.4"/><circle cx="492" cy="526" r="6" fill="#4FA86C" fill-opacity="0.4"/><circle cx="446" cy="560" r="7" fill="#4FA86C" fill-opacity="0.4"/>
+<ellipse cx="330" cy="396" rx="46" ry="18" transform="rotate(-24 330 396)" fill="#FFFFFF" fill-opacity="0.35"/>
+<circle cx="264" cy="497" r="4.5" fill="#4FA86C"/>
+<ellipse cx="304" cy="524" rx="17" ry="9" fill="#F08A8A" fill-opacity="0.35"/>
+<path d="M 256 530 Q 306 556 362 538" fill="none" stroke="#1D2125" stroke-width="6" stroke-linecap="round"/>
+<circle cx="330" cy="465" r="54" fill="#7DD69B" stroke="#4FA86C" stroke-width="6"/>
+<circle cx="330" cy="465" r="44" fill="none" stroke="#4FA86C" stroke-opacity="0.35" stroke-width="3"/>
+<circle cx="330" cy="465" r="34" fill="#FFFFFF" stroke="#4FA86C" stroke-width="4"/>
+<circle cx="315" cy="463" r="16" fill="#1D2125"/><circle cx="309" cy="457" r="5.5" fill="#FFFFFF"/>
+
+</svg>
+
+<span><span style="color: #7DD69B">QA</span>meleon</span>
+</a>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px 28px; font-size: 17px">
+<a href="/" style="color: #C5CDD3; text-decoration: none">Product</a>
+<a href="/about/" aria-current="page" style="color: #F2F5F7; text-decoration: none">About</a>
+<a href="/docs/" style="color: #C5CDD3; text-decoration: none">Docs</a>
+<a href="/#start" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; border-radius: 999px; background: #7DD69B; color: #1E2227; text-decoration: none; font-weight: 700">Get early access</a>
+</div>
+</nav>
+<div style="max-width: 1280px; margin: 0 auto; padding: 40px 24px 64px; display: flex; flex-direction: column; gap: 18px">
+<p style="margin: 0; font-size: 16px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #7DD69B">About</p>
+<h1 style="margin: 0; max-width: 900px; font-family: 'Bricolage Grotesque', system-ui, sans-serif; font-size: clamp(44px, 6vw, 72px); line-height: 0.98; font-weight: 800; letter-spacing: -0.035em">Built for teams with no QA person</h1>
+<p style="margin: 0; max-width: 700px; font-size: 20px; line-height: 1.5; color: #C5CDD3">Who builds QAmeleon, how it is tested, what it refuses to do, and what it can't do yet.</p>
+</div>
+</header>
+
+<main id="main" class="legal">
+<section aria-labelledby="why">
+<h2 id="why">Why QAmeleon exists</h2>
+<p>Most small teams don't have a QA person. The founder tests what they can, the developer tests what they wrote, and the rest goes out and hopes for the best.</p>
+<p>That isn't laziness. It's that nobody has the time, and a lot of founders don't know what they don't know. They aren't sure what to check, so they never feel sure about what they ship.</p>
+<p>QAmeleon is a QA engineer for those teams. It uses your app the way your users do, checks every ticket, and tells you in plain words what to fix.</p>
+</section>
+
+<section aria-labelledby="who">
+<h2 id="who">Who is building it</h2>
+<p>I'm Eamonn, and I'm building QAmeleon part-time, from Co. Kildare in Ireland.</p>
+<p>I spent over 20 years running kitchens and catering teams before moving into software QA after COVID. Since then I've tested products in health testing, nutrition data, energy and mobile apps, including work where a missed bug has real consequences for real people.</p>
+<p>The same thing comes up with every founder I talk to: they're building fast, and they're nervous about what they can't see. QAmeleon is the QA person I'd want on their team.</p>
+<p>The proof numbers on the home page come from a real startup where I was the part-time QA person. QAmeleon did the reviews. I checked its work.</p>
+</section>
+
+<section aria-labelledby="what">
+<h2 id="what">What it actually is</h2>
+<p>QAmeleon is a tool your developer sets up once, in about ten minutes. You connect four things: your code, your app, a few test accounts and your board.</p>
+<p>From then on it:</p>
+<ul>
+<li>checks your app every weekday morning and after every deploy</li>
+<li>works through the tickets waiting for QA and tests each one on your dev app</li>
+<li>raises what it finds on your board, with steps so a developer can see it for themselves</li>
+<li>learns your app as it goes, so the morning checks grow over time</li>
+</ul>
+<p>It runs on your own setup, using your own AI key. Your tickets and your pages never pass through us.</p>
+</section>
+
+<section id="testing" aria-labelledby="testing-h">
+<h2 id="testing-h">How I check it's any good</h2>
+<p>A tool that tests your app should be tested hard itself. These checks run all the time, not once.</p>
+<h3>An app full of planted bugs</h3>
+<p>I keep a small practice app with bugs hidden in it on purpose, each one a type of bug found for real on a live product. Some of those bugs are kept back and never used while tuning QAmeleon, so it can't just learn the answers.</p>
+<h3>A release that gets worse doesn't ship</h3>
+<p>Every new version is scored on that practice app before it goes out. If it catches fewer bugs, or raises more false alarms, the release is blocked. That has already happened, and the version was held back until it was fixed.</p>
+<h3>Tickets written to trick it</h3>
+<p>I plant tickets designed to fool it: hidden instructions telling it to pass a ticket, disguised text, fake messages pretending to be the system, requests to send data somewhere it shouldn't. It has to stop each one before any review starts, and still review the honest tickets that only look suspicious.</p>
+<h3>Setting it up like a stranger would</h3>
+<p>I set it up on my own business from the invite email, on an ordinary laptop, and wrote down every snag a newcomer would hit. All 15 were fixed in the next release.</p>
+<h3>A real product, with real people checking the results</h3>
+<p>In its first week on a live marketplace, the development lead accepted all 13 of its first findings. None were rejected and none were duplicates.</p>
+</section>
+
+<section aria-labelledby="wont">
+<h2 id="wont">What it won't do</h2>
+<p>Some things QAmeleon refuses, however the ticket is worded:</p>
+<ul>
+<li><strong>It won't pass a ticket it couldn't test.</strong> No steps, or steps it couldn't finish, never counts as a pass.</li>
+<li><strong>It won't take orders from a ticket.</strong> Tickets are something to test, not instructions. If one tries to tell QAmeleon what to do, the review stops and a person decides.</li>
+<li><strong>It won't post security problems on its own.</strong> Anything about security, or anything serious, waits for a person to look first.</li>
+<li><strong>It won't spend your money or contact your customers.</strong> Checkout, billing, sending, inviting and publishing are always blocked.</li>
+<li><strong>It won't leave a mess.</strong> It only creates clearly named test records, deletes them afterwards, and tells you nothing was left behind.</li>
+</ul>
+<p>These rules are built in. You can add to them, but you can't switch them off.</p>
+</section>
+
+<section aria-labelledby="cant">
+<h2 id="cant">What it can't do yet</h2>
+<p>I'd rather you hear these from me.</p>
+<ul>
+<li><strong>It isn't a replacement for every human check.</strong> It's good at the checks people skip. Judgement calls about your product, your brand or your customers still need you.</li>
+<li><strong>The track record is short.</strong> The numbers on the home page come from one startup so far. More pilots are starting now.</li>
+<li><strong>It's only as good as what it can reach.</strong> With a few test accounts and some realistic data it does far more than without them. It will tell you what to add next.</li>
+<li><strong>Its trick detection isn't perfect.</strong> It catches the common tricks and many disguised ones, but a new wording, or a language it doesn't know, could still get past. When that happens, the other rules above and a person's approval are what remain.</li>
+<li><strong>It's built part-time, by one person.</strong> That means early teams get me directly, and it also means things move at a steady pace, not overnight.</li>
+</ul>
+</section>
+
+<section aria-labelledby="questions">
+<h2 id="questions">Questions</h2>
+<p>Hard questions are welcome, and so are corrections. Email <a href="mailto:hello@qameleon.ai">hello@qameleon.ai</a> and you'll get a reply from me.</p>
+<div class="cta">
+<a class="primary" href="/#start">Get early access</a>
+<a class="secondary" href="/docs/">Read the docs</a>
+</div>
+</section>
+</main>
+
+<footer style="border-top: 1px solid #DCD8CE">
+<div style="max-width: 1280px; margin: 0 auto; padding: 32px 24px 48px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; font-size: 15px; color: #4A535B">
+<span>© 2026 QAmeleon<br>Built part-time in Co. Kildare, Ireland.</span>
+<nav aria-label="Footer" style="display: flex; flex-wrap: wrap; gap: 8px 24px">
+<a href="/">Home</a>
+<a href="/about/" aria-current="page">About</a>
+<a href="/docs/">Docs</a>
+<a href="/privacy/">Privacy</a>
+<a href="/terms/">Terms</a>
+</nav>
+</div>
+</footer>
+
+</div>
+</body>
+</html>
