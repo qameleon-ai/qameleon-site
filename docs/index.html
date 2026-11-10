@@ -138,6 +138,7 @@ footer a{display:inline-block;padding-block:3px}
 <a href="#email">Email</a>
 <a href="#datadog">Datadog</a>
 <a href="#webhook">Any webhook</a>
+<a href="#nudges">Messages to your team</a>
 <h2>Reference</h2>
 <a href="#results">Reading the results</a>
 <a href="#guards">What gets held, and why</a>
@@ -297,6 +298,7 @@ footer a{display:inline-block;padding-block:3px}
 <tr><td><span class="ui">Move verified passes to</span></td><td>Where a ticket goes when every step passed, for example "Passed QA". QAmeleon only moves a ticket from the review column to this one, and only when every step passed.</td></tr>
 </tbody>
 </table></div>
+<p>Tick <span class="ui">Message people in Slack when a ticket needs them</span> if you want QAmeleon to ask your developers for what it needs. See <a href="#nudges">Messages to your team</a>.</p>
 <ol class="steps"><li>Press <span class="ui">Continue</span>. The token is saved to your GitHub secrets.</li></ol>
 <div class="tip"><strong>Check the board before the first review</strong><p>Run <code>qameleon board check</code>. It reads your three columns and the queue, then raises two throwaway tickets, comments on them, links and moves them, and puts them in the trash after (on Jira and Trello it names them for you to delete). Each step says ok, or what to fix. Add <code>--read-only</code> to write nothing.</p></div>
 <div class="tip"><strong>If your team will not connect its board</strong><p>QAmeleon can keep its findings in a file instead, and <code>qameleon export</code> turns them into an import file for Jira, Linear, Notion or GitHub Issues. Nothing is posted anywhere: you import the file yourself.</p></div>
@@ -545,6 +547,27 @@ footer a{display:inline-block;padding-block:3px}
 <li>Press <span class="ui">Send a test</span> and check your tool received it, then commit <code>qa.config.json</code>.</li>
 </ol>
 <a class="top" href="#contents">Back to the contents</a>
+</section>
+
+<section id="nudges">
+<p class="kick">Send the report</p>
+<h2>Messages to your team</h2>
+<p class="lead">When QAmeleon cannot finish a ticket because it needs something from a person, it sends that person a short Slack message instead of leaving the ticket to sit.</p>
+<h3>What happens</h3>
+<ol class="steps">
+<li>A review cannot finish some steps, for example a test account has no data, or a step needs a person to judge it.</li>
+<li>QAmeleon messages the ticket's assignee (or the person who wrote it) with a short list of what it needs to pass the ticket.</li>
+<li>They reply in Slack. QAmeleon copies the reply onto the ticket and runs the ticket again on its next run, with proof of each step.</li>
+<li>Or they reply <strong>pass anyway</strong>. The ticket moves on without QA and is labelled <code>passed-without-qa</code>, so you can count them.</li>
+</ol>
+<p>Steps that failed never get a message: they go back to the developers as their own ticket. Nobody is messaged when the problem was QAmeleon's own, for example its browser would not start. A reply like "not now" leaves the ticket where it is, and a later answer still counts. A password typed into a reply is never copied to the ticket.</p>
+<h3>Turn it on</h3>
+<ol class="steps">
+<li>Make a Slack app at <a href="https://api.slack.com/apps">api.slack.com/apps</a>. Under OAuth &amp; Permissions, add the bot scopes <code>chat:write</code>, <code>im:write</code>, <code>im:history</code>, <code>users:read</code> and <code>users:read.email</code>, and install it to your workspace.</li>
+<li>In setup's <a href="#setup-board">Board</a> step, tick <span class="ui">Message people in Slack when a ticket needs them</span> and press <span class="ui">Continue</span>.</li>
+<li>In the terminal, paste the <span class="ui">Bot User OAuth Token</span> (it starts <code>xoxb-</code>). QAmeleon checks it with Slack and saves it to your GitHub secrets.</li>
+</ol>
+<p>Setup then matches everyone on your board to Slack, by email first and then by name, and tells you anyone it could not find. On Jira and Linear this works as it is. On Notion, give the database an Assignee property and turn on the email capability (see <a href="#setup-board">Board</a>). On Trello, add people by hand in <code>nudge.people</code> in <code>qa.config.json</code>.</p>
 </section>
 
 <section id="results">
