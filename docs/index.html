@@ -175,7 +175,7 @@ footer a{display:inline-block;padding-block:3px}
 <tr><td><strong>A repository on GitHub with Actions</strong></td><td>QAmeleon adds one workflow and runs there. GitLab is coming soon.</td></tr>
 <tr><td><strong>Your dev app, running</strong></td><td>The address of a dev or test environment. Never production.</td></tr>
 <tr><td><strong>Two test accounts in different customers</strong></td><td>So it can prove one customer cannot see another's data. A third, borrowed account with real data is optional and stays look only. A public site with no sign-in needs none.</td></tr>
-<tr><td><strong>A board: Jira, Trello or Notion</strong></td><td>For Jira, an API token. For Trello, an API key and token. For Notion, an integration secret. You will pick three columns.</td></tr>
+<tr><td><strong>A board: Jira, Trello, Notion or Linear</strong></td><td>For Jira, an API token. For Trello, an API key and token. For Notion, an integration secret. For Linear, a personal API key. You will pick three columns.</td></tr>
 <tr><td><strong>An Anthropic API key</strong></td><td>Ticket reviews run on it. We suggest a separate workspace with a spend limit. The morning and deploy checks cost nothing.</td></tr>
 </tbody>
 </table></div>
@@ -279,7 +279,15 @@ footer a{display:inline-block;padding-block:3px}
 <li>Leave <span class="ui">Short key for tickets</span> empty to use the prefix of the database's Unique ID property, or type one, for example <code>APP</code>.</li>
 <li>Press <span class="ui">Load columns</span>. In the terminal, type the integration secret from notion.so/my-integrations.</li>
 </ol>
-<p>The database needs a Status property, whose options become the columns, and a Unique ID property, which names the tickets.</p>
+<p>The database needs a Status property, whose options become the columns, and a Unique ID property, which names the tickets. A Labels property (Multi-select) and a Related property (a relation to the same database) let QAmeleon label what it finds and link it to the ticket it came from.</p>
+<p>To let QAmeleon message the right person in Slack when a ticket needs them, give the database an Assignee property (People), and in your integration's Capabilities turn on <span class="ui">Read user information including email addresses</span>. QAmeleon matches people to Slack by their email.</p>
+<h3>Linear</h3>
+<ol class="steps">
+<li>Choose <span class="ui">Linear</span>.</li>
+<li>Type the <span class="ui">Team key</span>: the letters before your issue numbers, for example <code>APP</code> for APP-12.</li>
+<li>Press <span class="ui">Load columns</span>. In the terminal, type a personal API key. Make one in Linear under Settings, Security &amp; access, Personal API keys.</li>
+</ol>
+<p>The columns are your team's workflow statuses. If your team uses Linear's Triage, it makes a good place for findings. Comments and findings show under the name of the person whose key it is, so use a key from a shared QA account if you have one.</p>
 <h3>Pick the three columns</h3>
 <div class="tw"><table>
 <thead><tr><th scope="col">Field</th><th scope="col">Pick</th></tr></thead>
@@ -290,6 +298,8 @@ footer a{display:inline-block;padding-block:3px}
 </tbody>
 </table></div>
 <ol class="steps"><li>Press <span class="ui">Continue</span>. The token is saved to your GitHub secrets.</li></ol>
+<div class="tip"><strong>Check the board before the first review</strong><p>Run <code>qameleon board check</code>. It reads your three columns and the queue, then raises two throwaway tickets, comments on them, links and moves them, and puts them in the trash after (on Jira and Trello it names them for you to delete). Each step says ok, or what to fix. Add <code>--read-only</code> to write nothing.</p></div>
+<div class="tip"><strong>If your team will not connect its board</strong><p>QAmeleon can keep its findings in a file instead, and <code>qameleon export</code> turns them into an import file for Jira, Linear, Notion or GitHub Issues. Nothing is posted anywhere: you import the file yourself.</p></div>
 <div class="tip"><strong>Other boards</strong><p><span class="ui">Your own</span> links to the guide for connecting any other board. Slack, Teams, email and Datadog are not set up here: you add them in the console, under <a href="#console-connections">Connections</a>.</p></div>
 </section>
 
@@ -612,6 +622,9 @@ footer a{display:inline-block;padding-block:3px}
 <tr><td><code>qameleon console</code></td><td>The console.</td></tr>
 <tr><td><code>qameleon doctor</code></td><td>Checks the whole setup: config, secrets, and that each app answers.</td></tr>
 <tr><td><code>qameleon doctor --review</code></td><td>How ready reviews are, as a score, and the one next thing to add.</td></tr>
+<tr><td><code>qameleon board check</code></td><td>Proves your board works with QAmeleon, step by step. Raises two throwaway tickets and takes them off again. <code>--read-only</code> writes nothing.</td></tr>
+<tr><td><code>qameleon export --to jira</code></td><td>For a team that keeps findings in a file: writes an import file for Jira, <code>linear</code>, <code>notion</code> or <code>github</code> into <code>.qa/out/export</code>. Only open findings, most serious first. Posts nothing.</td></tr>
+<tr><td><code>qameleon smoke init</code></td><td>Writes a starter Playwright smoke pack for your app: four quick checks your developers can run any time, a guard that refuses production, and a GitHub workflow. Add <code>--write</code> to run it in the morning check too.</td></tr>
 <tr><td><code>qameleon run --dry-run</code></td><td>The full morning check. Posts nothing.</td></tr>
 <tr><td><code>qameleon review queue</code></td><td>Tickets waiting in the review column.</td></tr>
 <tr><td><code>qameleon review run APP-12 APP-14</code></td><td>Reviews those tickets and publishes what no guard holds.</td></tr>
@@ -638,6 +651,9 @@ footer a{display:inline-block;padding-block:3px}
 <tr><td>An account says "Not signed in"</td><td>Check the email and password by signing in yourself, then press the button again. Only that account is asked for.</td></tr>
 <tr><td>"Jira did not accept that email and API token"</td><td>Make a new token for that exact email, press <span class="ui">Load columns</span> and type it again.</td></tr>
 <tr><td>"Trello did not accept that key and token"</td><td>Copy both again from trello.com/power-ups/admin. Key first, then token.</td></tr>
+<tr><td>"Linear did not accept the API key"</td><td>Make a new personal API key in Linear (Settings, Security &amp; access), press <span class="ui">Load columns</span> and type it again.</td></tr>
+<tr><td>"Notion cannot see that database"</td><td>Open the database, choose ••• then Connections, and add your QAmeleon integration.</td></tr>
+<tr><td><code>board check</code> says people have no email</td><td>On Notion, turn on <span class="ui">Read user information including email addresses</span> in your integration's Capabilities. Without emails, Slack messages cannot find the right person.</td></tr>
 <tr><td>Most review steps come back blocked</td><td>The test accounts are empty. Run <code>qameleon doctor --review</code>: it names the next thing to add, usually a look-only account with real data.</td></tr>
 <tr><td>A destination says "Needs a secret"</td><td>Remove it and add it again from the console, typing the secret in the terminal when asked.</td></tr>
 <tr><td>A new destination gets nothing in the morning</td><td>Commit <code>qa.config.json</code>. CI only sends to destinations in the committed file.</td></tr>
