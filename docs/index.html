@@ -567,7 +567,24 @@ footer a{display:inline-block;padding-block:3px}
 <li>In setup's <a href="#setup-board">Board</a> step, tick <span class="ui">Message people in Slack when a ticket needs them</span> and press <span class="ui">Continue</span>.</li>
 <li>In the terminal, paste the <span class="ui">Bot User OAuth Token</span> (it starts <code>xoxb-</code>). QAmeleon checks it with Slack and saves it to your GitHub secrets.</li>
 </ol>
-<p>Setup then matches everyone on your board to Slack, by email first and then by name, and tells you anyone it could not find. On Jira and Linear this works as it is. On Notion, give the database an Assignee property and turn on the email capability (see <a href="#setup-board">Board</a>). On Trello, add people by hand in <code>nudge.people</code> in <code>qa.config.json</code>.</p>
+<p>Setup then matches everyone on your board to Slack, by email first and then by name, and tells you anyone it could not find. On Jira and Linear this works as it is. On Notion, give the database an Assignee property and turn on the email capability (see <a href="#setup-board">Board</a>). On Trello, add people by hand, with the steps below.</p>
+<h3 id="nudge-people">If someone was not found in Slack</h3>
+<p>This happens when a person uses one email on your board and another in Slack, or their name is spelled differently in each. QAmeleon never guesses between two people, so it asks you. Until you match them, they get no messages.</p>
+<ol class="steps">
+<li>Note the name setup showed after <span class="ui">Not found in Slack</span>. It is the name exactly as your board shows it, for example <code>sam</code>.</li>
+<li>Find that person in Slack. Open their profile, press the three dots, and choose <span class="ui">Copy member ID</span>. It starts with <code>U</code>. Their Slack email works too.</li>
+<li>Open <code>qa.config.json</code> in your repository folder.</li>
+<li>Add this block before the last <code>}</code>, with a comma after the line above it. Put the board name on the left and the member ID or Slack email on the right:
+<code style="display: block; white-space: pre; margin-top: 8px; padding: 12px 14px; overflow-x: auto">"nudge": {
+  "people": {
+    "sam": "U0123ABCD"
+  }
+}</code></li>
+<li>For more than one person, add a line each inside <code>people</code>, with a comma between them.</li>
+<li>Save the file, then commit and push it, so your CI uses it too.</li>
+<li>Check it: run <code>qameleon review nudge --dry-run</code>. It lists who each message would go to and sends nothing.</li>
+</ol>
+<div class="tip"><strong>Fixed the email instead?</strong><p>If you changed the person's email on the board or in Slack so the two match, run <code>qameleon review people --save</code>. It matches everyone again and keeps the result.</p></div>
 </section>
 
 <section id="results">
